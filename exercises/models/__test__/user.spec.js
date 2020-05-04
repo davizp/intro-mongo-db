@@ -10,8 +10,8 @@ describe('User model', () => {
         email: 'sasha@gmail.com'
       })
     } catch (e) {
-      expect(e).toBeTruthy()
-    }    
+      expect(e.errors.firstName.message).toBe('Path `firstName` is required.');
+    }
   })
   test('last name must be required', async () => {
     expect.assertions(1)
@@ -22,8 +22,8 @@ describe('User model', () => {
         email: 'sasha@gmail.com'
       })
     } catch (e) {
-      expect(e).toBeTruthy()
-    }    
+      expect(e.errors.lastName.message).toBe('Path `lastName` is required.');
+    }
   })
   test('email must be required', async () => {
     expect.assertions(1)
@@ -34,15 +34,15 @@ describe('User model', () => {
         firstName: 'Sasha'
       })
     } catch (e) {
-      expect(e).toBeTruthy()
-    }    
+      expect(e.errors.email.message).toBe('Path `email` is required.');
+    }
   })
 
   test('email must be unique', async () => {
     expect.assertions(1)
 
     try {
-      await User.init() // wait for index to build
+      await User.init(); // wait for index to build
       await User.create([
         {
           lastName: 'Williams',
@@ -54,10 +54,10 @@ describe('User model', () => {
           firstName: 'Mel',
           email: 'email@gmail.com'
         }
-      ])
+      ]);
     } catch (e) {
-      expect(e).toBeTruthy()
-    }    
+      expect(e).toBeDefined();
+    }
   })
 
   test('betaUser should default to false', async () => {

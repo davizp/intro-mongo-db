@@ -22,7 +22,7 @@ describe('queries', () => {
         contentLength: 50
       })
       
-      const match = await postByTitle(title)
+      const match = await postByTitle(title);
       expect(match.id).toBe(post.id)
     })
   })
